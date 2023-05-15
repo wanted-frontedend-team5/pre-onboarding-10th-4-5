@@ -1,7 +1,7 @@
 export const headerStyle = {
   padding: '20px 0',
   lineHeight: '1.5em',
-} as any;
+} as React.CSSProperties;
 
 export const titleStyle = {
   fontSize: '6rem',
@@ -10,4 +10,4 @@ export const titleStyle = {
   lineHeight: '1em',
   color: '#ececec',
   textAlign: 'center',
-} as any;
+} as React.CSSProperties;
