@@ -1,5 +1,5 @@
 export type TodoInputType = {
-  title: String;
+  title: string;
 };
 
 export type TodoType = {

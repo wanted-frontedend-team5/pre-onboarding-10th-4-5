@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import { FaSpinner, FaTrash } from 'react-icons/fa';
 import { TodoListType } from 'type/todo';
 import React, { useCallback, useState } from 'react';
@@ -17,7 +18,7 @@ const TodoItem = ({ id, title, setTodos }: TodoItemProps) => {
       setIsLoading(true);
       await deleteTodo(id);
 
-      setTodos((prev: TodoListType) => prev.filter(item => item.id !== id));
+      setTodos(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       alert('Something went wrong.');
     } finally {

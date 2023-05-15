@@ -1,16 +1,29 @@
+/* eslint-disable no-unused-vars */
 import axios, { AxiosRequestConfig } from 'axios';
-import { TodoInputType, TodoListType } from 'type/todo';
+import { TodoInputType, TodoListType, TodoType } from 'type/todo';
 
-type ResponseType = {
+type TodoListResponseType = {
   data: TodoListType;
   message: string;
   opcode: string;
 };
 
+type TodoItemResponseType = {
+  data: TodoType;
+  message: string;
+  opcode: string;
+};
+
 type TodoApiRequest = {
-  get: (url: string, request?: AxiosRequestConfig) => Promise<ResponseType>;
-  delete: (url: string, request?: AxiosRequestConfig) => Promise<ResponseType>;
-  post: (url: string, data: TodoInputType) => Promise<ResponseType>;
+  get: (
+    url: string,
+    request?: AxiosRequestConfig,
+  ) => Promise<TodoListResponseType>;
+  delete: (
+    url: string,
+    request?: AxiosRequestConfig,
+  ) => Promise<TodoItemResponseType>;
+  post: (url: string, data: TodoInputType) => Promise<TodoItemResponseType>;
 };
 
 const baseURL = process.env.REACT_APP_API_URL;

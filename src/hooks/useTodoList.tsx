@@ -8,6 +8,7 @@ export const useTodoList = () => {
   useEffect(() => {
     (async () => {
       const { data } = await getTodoList();
+
       setTodoListData(data || []);
     })();
   }, []);
