@@ -8,14 +8,16 @@ module.exports = {
     'plugin:import/recommended',
     'airbnb',
     'airbnb/hooks',
+    'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
+  parser: '@typescript-eslint/parser',
   overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react'],
+  plugins: ['@typescript-eslint'],
   rules: {
     // for enabling the rule. 0=off, 1=warn, 2=error. Defaults to 0.
     'object-curly-newline': 'off',
