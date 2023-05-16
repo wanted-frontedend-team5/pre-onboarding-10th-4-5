@@ -75,6 +75,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         )}
       </form>
       <RecommandList
+        inputValue={inputText}
         recommandList={recommandList}
         setInputText={setInputText}
         addTodosSubmitFunc={addTodosSubmitFunc}

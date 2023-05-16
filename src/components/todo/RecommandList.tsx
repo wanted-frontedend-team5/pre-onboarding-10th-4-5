@@ -4,12 +4,14 @@ import React from 'react';
 import { RecommandListType } from 'type/search';
 
 type RecommandListProps = {
+  inputValue: string;
   recommandList: RecommandListType;
   setInputText: React.Dispatch<React.SetStateAction<string>>;
   addTodosSubmitFunc: (value: string) => Promise<void>;
 };
 
 export const RecommandList = ({
+  inputValue,
   recommandList,
   setInputText,
   addTodosSubmitFunc,
@@ -17,6 +19,13 @@ export const RecommandList = ({
   return (
     <ul className={recommandList.length ? 'recommand-list' : 'none'}>
       {recommandList.map(title => {
+        let titleContent = title;
+        if (titleContent.includes(inputValue)) {
+          titleContent = titleContent.replaceAll(
+            inputValue,
+            `<span style="color: #2BC9BA">${inputValue}</span>`,
+          );
+        }
         return (
           <li
             key={title}
@@ -25,9 +34,9 @@ export const RecommandList = ({
               setInputText(title);
               addTodosSubmitFunc(title);
             }}
-          >
-            {title}
-          </li>
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: titleContent }}
+          />
         );
       })}
     </ul>
