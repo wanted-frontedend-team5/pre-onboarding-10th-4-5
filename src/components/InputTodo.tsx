@@ -4,15 +4,17 @@ import { createTodo } from '../api/todo';
 import useFocus from '../hooks/useFocus';
 import { Todo } from '../types';
 import useInput from '../hooks/useInput';
+import { useTodoListAction } from '../context/TodoListProvider';
 
 interface Props {
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-const InputTodo = ({ setTodos }: Props) => {
+const InputTodo = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { ref, setFocus } = useFocus();
   const { inputText, onChange, reset } = useInput('');
+  const { add } = useTodoListAction();
 
   useEffect(() => {
     setFocus();
@@ -33,7 +35,7 @@ const InputTodo = ({ setTodos }: Props) => {
         const { data } = await createTodo(newItem);
 
         if (data) {
-          return setTodos(prev => [...prev, data]);
+          return add(data);
         }
       } catch (error) {
         console.error(error);
@@ -43,7 +45,7 @@ const InputTodo = ({ setTodos }: Props) => {
         setIsLoading(false);
       }
     },
-    [inputText, setTodos, reset],
+    [add, inputText, reset],
   );
 
   return (
