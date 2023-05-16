@@ -1,7 +1,14 @@
+import { baseInstance } from 'api';
 import { TodoInputType } from 'type/todo';
-import apiRequest from './index';
+import { TodoApiRequest } from './todo.type';
 
 const RESOURCE = '/todos';
+
+const apiRequest: TodoApiRequest = {
+  get: url => baseInstance.get(url),
+  delete: url => baseInstance.delete(url),
+  post: (url, data) => baseInstance.post(url, data),
+};
 
 export const getTodoList = async () => {
   try {

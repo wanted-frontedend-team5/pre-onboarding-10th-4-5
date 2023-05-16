@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { deleteTodo } from 'api/todo';
+import { deleteTodo } from 'api/todo.service';
 import { FaSpinner, FaTrash } from 'react-icons/fa';
 import { TodoListType } from 'type/todo';
 

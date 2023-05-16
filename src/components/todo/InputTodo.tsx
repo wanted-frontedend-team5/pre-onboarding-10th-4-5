@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 import { FaPlusCircle, FaSpinner } from 'react-icons/fa';
 import React, { useCallback, useState } from 'react';
-import { createTodo } from 'api/todo';
+import { createTodo } from 'api/todo.service';
 import { TodoInputType, TodoListType } from 'type/todo';
 import { useFocusInput } from 'hooks/useFocusInput';
 
