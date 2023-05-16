@@ -9,13 +9,15 @@ module.exports = {
     'airbnb',
     'airbnb/hooks',
     'plugin:prettier/recommended',
+    'plugin:@typescript-eslint/recommended',
   ],
-  overrides: [],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react'],
+  overrides: [],
+  plugins: ['react', '@typescript-eslint'],
   rules: {
     // for enabling the rule. 0=off, 1=warn, 2=error. Defaults to 0.
     'object-curly-newline': 'off',
@@ -38,7 +40,7 @@ module.exports = {
     // 이벤트 처리기가 없는 비 대화형 엘리먼트에서 이벤트 처리기를 허용하는 규칙을 비활성화합니다.
     'jsx-a11y/no-noninteractive-element-interactions': 2,
     'jsx-a11y/click-events-have-key-events': 0,
-    // '@typescript-eslint/explicit-module-boundary-types': 0, // ESLint formatting 끔
+    '@typescript-eslint/explicit-module-boundary-types': 0, // ESLint formatting 끔
     //  switch 문에서 default case를 사용하지 않을 때 경고를 끔으로써 default case가 필수적이지 않을 때 규칙을 비활성화합니다.
     'default-case': 2,
     'consistent-return': 0,

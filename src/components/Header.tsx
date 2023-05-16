@@ -1,9 +1,11 @@
+import React from 'react';
+
 const Header = () => {
-  const headerStyle = {
+  const headerStyle: React.CSSProperties = {
     padding: '20px 0',
     lineHeight: '1.5em',
   };
-  const titleStyle = {
+  const titleStyle: React.CSSProperties = {
     fontSize: '6rem',
     fontWeight: '600',
     marginBottom: '2rem',

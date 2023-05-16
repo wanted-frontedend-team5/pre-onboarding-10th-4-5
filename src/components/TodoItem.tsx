@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 
 import { deleteTodo } from '../api/todo';
 
-const TodoItem = ({ id, title, setTodos }) => {
+const TodoItem = ({ id, todo, setTodos }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRemoveTodo = useCallback(async () => {
@@ -24,7 +24,7 @@ const TodoItem = ({ id, title, setTodos }) => {
 
   return (
     <li className="item">
-      <span>{title}</span>
+      <span>{todo}</span>
       <div className="item-option">
         {!isLoading ? (
           <button onClick={() => handleRemoveTodo()}>
