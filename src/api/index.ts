@@ -1,28 +1,30 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { TodoInputType, TodoListType } from '../types/todo';
+import { TodoInputType } from '../types/todo';
 
-type ResponseType = {
-  data: TodoListType;
-  message: string;
-  opcode: string;
-};
-
-type TodoApiRequest = {
-  get: (url: string, request?: AxiosRequestConfig) => Promise<ResponseType>;
-  delete: (url: string, request?: AxiosRequestConfig) => Promise<ResponseType>;
-  post: (url: string, data: TodoInputType) => Promise<ResponseType>;
+export type BaseInstance = {
+  url: string;
+  request?: AxiosRequestConfig;
+  data?: TodoInputType;
+  config?: AxiosRequestConfig;
 };
 
 const baseURL = process.env.REACT_APP_API_URL;
 const token = process.env.REACT_APP_TOKEN;
 
-const apiRequest = axios.create({
+const baseInstance = axios.create({
   baseURL,
   headers: {
     Authorization: `Bearer ${token}`,
   },
 });
 
-apiRequest.interceptors.response.use(({ data }) => data);
+baseInstance.interceptors.response.use(({ data }) => data);
 
-export default apiRequest as TodoApiRequest;
+const apiRequest = {
+  get: ({ url, request }: BaseInstance) => baseInstance.get(url, request),
+  delete: ({ url, request }: BaseInstance) => baseInstance.delete(url, request),
+  post: ({ url, data, config }: BaseInstance) =>
+    baseInstance.post(url, data, config),
+};
+
+export default apiRequest;

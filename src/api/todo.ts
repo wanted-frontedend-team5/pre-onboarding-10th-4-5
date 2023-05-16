@@ -5,7 +5,7 @@ const RESOURCE = '/todos';
 
 export const getTodoList = async () => {
   try {
-    const response = await apiRequest.get(`${RESOURCE}`);
+    const response = await apiRequest.get({ url: `${RESOURCE}` });
 
     return response;
   } catch (error) {
@@ -15,7 +15,7 @@ export const getTodoList = async () => {
 
 export const createTodo = async (data: TodoInputType) => {
   try {
-    const response = await apiRequest.post(`${RESOURCE}`, data);
+    const response = await apiRequest.post({ url: `${RESOURCE}`, data });
 
     return response;
   } catch (error) {
@@ -25,7 +25,7 @@ export const createTodo = async (data: TodoInputType) => {
 
 export const deleteTodo = async (id: string) => {
   try {
-    const response = await apiRequest.delete(`${RESOURCE}/${id}`);
+    const response = await apiRequest.delete({ url: `${RESOURCE}/${id}` });
 
     return response;
   } catch (error) {

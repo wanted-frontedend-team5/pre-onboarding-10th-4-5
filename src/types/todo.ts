@@ -1,12 +1,14 @@
-export type TodoInputType = {
-  todo: string;
-};
+import { Dispatch, SetStateAction } from 'react';
 
-export type TodoType = {
-  createdAt: Date;
+export type TodoDataType = {
+  createdAt: string;
   id: string;
   title: string;
-  updatedAt: Date;
+  updatedAt: string;
 };
 
-export type TodoListType = TodoType[];
+export type TodoInputType = {
+  title: string;
+};
+
+export type SetStateType<T> = Dispatch<SetStateAction<T>>;
