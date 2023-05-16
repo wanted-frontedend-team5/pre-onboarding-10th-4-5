@@ -1,18 +1,25 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Header from '../components/Header';
 import InputTodo from '../components/InputTodo';
 import TodoList from '../components/TodoList';
 import { getTodoList } from '../api/todo';
+import { TodoListType } from '../types/todo';
 
-const Main = () => {
-  const [todoListData, setTodoListData] = useState([]);
+const Main: React.FC = () => {
+  const [todoListData, setTodoListData] = useState<TodoListType>([]);
 
   useEffect(() => {
-    (async () => {
-      const { data } = await getTodoList();
-      setTodoListData(data || []);
-    })();
+    const fetchData = async () => {
+      try {
+        const { data } = await getTodoList();
+        setTodoListData(data || []);
+      } catch (error) {
+        console.error('error', error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (

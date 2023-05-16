@@ -1,11 +1,11 @@
 export type TodoInputType = {
-  todo: String;
+  todo: string;
 };
 
 export type TodoType = {
   createdAt: Date;
   id: string;
-  todo: string;
+  title: string;
   updatedAt: Date;
 };
 
