@@ -4,6 +4,7 @@ import React, { useCallback, useState } from 'react';
 import { createTodo } from 'api/todo.service';
 import { TodoInputType, TodoListType } from 'type/todo';
 import { useFocusInput } from 'hooks/useFocusInput';
+import { RecommandList } from './RecommandList';
 
 type InputTodoProps = {
   setTodos: React.Dispatch<React.SetStateAction<TodoListType>>;
@@ -11,7 +12,8 @@ type InputTodoProps = {
 
 const InputTodo = ({ setTodos }: InputTodoProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { inputText, ref, onChange, onInputReset } = useFocusInput();
+  const { inputText, ref, onChange, onInputReset, recommandList } =
+    useFocusInput();
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,23 +43,26 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
   );
 
   return (
-    <form className="form-container" onSubmit={handleSubmit}>
-      <input
-        className="input-text"
-        placeholder="Add new todo..."
-        ref={ref}
-        value={inputText}
-        onChange={onChange}
-        disabled={isLoading}
-      />
-      {!isLoading ? (
-        <button className="input-submit" type="submit">
-          <FaPlusCircle className="btn-plus" />
-        </button>
-      ) : (
-        <FaSpinner className="spinner" />
-      )}
-    </form>
+    <>
+      <form className="form-container" onSubmit={handleSubmit}>
+        <input
+          className="input-text"
+          placeholder="Add new todo..."
+          ref={ref}
+          value={inputText}
+          onChange={onChange}
+          disabled={isLoading}
+        />
+        {!isLoading ? (
+          <button className="input-submit" type="submit">
+            <FaPlusCircle className="btn-plus" />
+          </button>
+        ) : (
+          <FaSpinner className="spinner" />
+        )}
+      </form>
+      <RecommandList recommandList={recommandList} />
+    </>
   );
 };
 
