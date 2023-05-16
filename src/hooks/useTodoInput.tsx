@@ -4,7 +4,7 @@ import { RecommandListType } from 'type/search';
 import useFocus from './useFocus';
 import { useDebounce } from './useDebounce';
 
-export const useFocusInput = () => {
+export const useTodoInput = () => {
   const [inputText, setInputText] = useState<string>('');
   const [recommandList, setRecommandList] = useState<RecommandListType>([]);
   const { ref, setFocus } = useFocus();
@@ -14,7 +14,10 @@ export const useFocusInput = () => {
     setInputText(e.target.value);
   }, []);
 
-  const onInputReset = useCallback(() => setInputText(''), []);
+  const onInputReset = useCallback(() => {
+    setInputText('');
+    setRecommandList([]);
+  }, []);
 
   useEffect(() => {
     setFocus();
@@ -30,5 +33,13 @@ export const useFocusInput = () => {
     fetchRecommand(debounceValue);
   }, [debounceValue]);
 
-  return { recommandList, inputText, ref, onChange, onInputReset };
+  return {
+    recommandList,
+    inputText,
+    setInputText,
+    debounceValue,
+    ref,
+    onChange,
+    onInputReset,
+  };
 };
