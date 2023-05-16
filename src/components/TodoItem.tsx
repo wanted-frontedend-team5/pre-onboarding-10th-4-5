@@ -1,7 +1,7 @@
 import { FaSpinner, FaTrash } from 'react-icons/fa';
 import { useCallback, useState } from 'react';
 import { deleteTodo } from '../api/todo';
-import { Todo } from '../types/api';
+import { Todo } from '../types';
 
 interface Props {
   id: string;

@@ -17,7 +17,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['react', '@typescript-eslint'],
   rules: {
     // for enabling the rule. 0=off, 1=warn, 2=error. Defaults to 0.
     'object-curly-newline': 'off',

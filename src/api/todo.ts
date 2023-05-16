@@ -1,3 +1,4 @@
+import { InputValue } from '../types';
 import apiRequest from './index';
 
 const RESOURCE = '/todos';
@@ -12,7 +13,7 @@ export const getTodoList = async () => {
   }
 };
 
-export const createTodo = async (data: { title: string }) => {
+export const createTodo = async (data: InputValue) => {
   try {
     const response = await apiRequest.post(`${RESOURCE}`, data);
 

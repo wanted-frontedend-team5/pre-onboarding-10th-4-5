@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import InputTodo from '../components/InputTodo';
 import TodoList from '../components/TodoList';
 import { getTodoList } from '../api/todo';
-import { Todo } from '../types/api';
+import { Todo } from '../types';
 
 const Main = () => {
   const [todoListData, setTodoListData] = useState<Todo[]>([]);
