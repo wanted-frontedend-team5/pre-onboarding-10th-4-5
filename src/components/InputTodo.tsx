@@ -3,15 +3,16 @@ import { useCallback, useEffect, useState } from 'react';
 import { createTodo } from '../api/todo';
 import useFocus from '../hooks/useFocus';
 import { Todo } from '../types';
+import useInput from '../hooks/useInput';
 
 interface Props {
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
 const InputTodo = ({ setTodos }: Props) => {
-  const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { ref, setFocus } = useFocus();
+  const { inputText, onChange, reset } = useInput('');
 
   useEffect(() => {
     setFocus();
@@ -38,11 +39,11 @@ const InputTodo = ({ setTodos }: Props) => {
         console.error(error);
         alert('Something went wrong.');
       } finally {
-        setInputText('');
+        reset();
         setIsLoading(false);
       }
     },
-    [inputText, setTodos],
+    [inputText, setTodos, reset],
   );
 
   return (
@@ -52,7 +53,7 @@ const InputTodo = ({ setTodos }: Props) => {
         placeholder="Add new todo..."
         ref={ref}
         value={inputText}
-        onChange={e => setInputText(e.target.value)}
+        onChange={onChange}
         disabled={isLoading}
       />
       {!isLoading ? (
