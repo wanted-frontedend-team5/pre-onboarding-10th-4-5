@@ -44,7 +44,8 @@ module.exports = {
     //  switch 문에서 default case를 사용하지 않을 때 경고를 끔으로써 default case가 필수적이지 않을 때 규칙을 비활성화합니다.
     'default-case': 2,
     'consistent-return': 0,
-    'no-unused-vars': 1,
+    'no-unused-vars': 0,
+    '@typescript-eslint/no-unused-vars': 1,
     'no-param-reassign': 2,
     'jsx-a11y/label-has-associated-control': 1,
     // 'react/require-default-props': 0,
