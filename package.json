@@ -6,12 +6,18 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^29.5.1",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
     "axios": "^0.26.1",
     "connected-react-router": "^6.8.0",
-    "react": "^18.0.0",
-    "react-dom": "^17.0.1",
+    "dotenv": "^16.0.3",
     "react-icons": "^4.1.0",
-    "react-scripts": "^5.0.0"
+    "react-scripts": "^5.0.0",
+    "styled-components": "^6.0.0-rc.1",
+    "ts-dotenv": "^0.9.1",
+    "tsc-init": "^2.1.0",
+    "typescript": "^5.0.4"
   },
   "scripts": {
     "start": "react-scripts start"
@@ -32,6 +38,8 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^20.1.5",
+    "@types/styled-components": "^5.1.26",
     "eslint": "^8.39.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
@@ -42,6 +50,8 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.1",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
