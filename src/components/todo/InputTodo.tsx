@@ -4,6 +4,7 @@ import React, { useCallback, useState } from 'react';
 import { createTodo } from 'api/todo.service';
 import { TodoInputType, TodoListType } from 'type/todo';
 import { useTodoInput } from 'hooks/useTodoInput';
+import useFocus from 'hooks/useFocus';
 import { RecommandList } from './RecommandList';
 
 type InputTodoProps = {
@@ -15,13 +16,14 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
   const {
     inputText,
     debounceValue,
-    ref,
+    // ref,
     onChange,
     fetchNextRecommandList,
     onInputReset,
     setInputText,
     recommandList,
   } = useTodoInput();
+  const { ref, setFocus, isVisible, setIsVisible } = useFocus();
 
   const addTodosSubmitFunc = useCallback(
     async (value: string) => {
@@ -63,6 +65,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
           className="input-text"
           placeholder="Add new todo..."
           ref={ref}
+          onClick={setFocus}
           value={inputText}
           onChange={onChange}
           disabled={isLoading}
@@ -76,6 +79,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         )}
       </form>
       <RecommandList
+        isVisible={isVisible}
         inputValue={inputText}
         fetchNextRecommandList={fetchNextRecommandList}
         recommandList={recommandList}

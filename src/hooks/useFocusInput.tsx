@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent, useCallback } from 'react';
+import { useState, ChangeEvent, useCallback } from 'react';
 import useFocus from './useFocus';
 
 export const useFocusInput = () => {
@@ -11,10 +11,6 @@ export const useFocusInput = () => {
   );
 
   const onInputReset = useCallback(() => setInputText(''), []);
-
-  useEffect(() => {
-    setFocus();
-  }, [setFocus]);
 
   return { inputText, ref, onChange, onInputReset };
 };
