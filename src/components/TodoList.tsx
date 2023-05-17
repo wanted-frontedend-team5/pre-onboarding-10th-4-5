@@ -1,10 +1,10 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import TodoItem from './TodoItem';
-import { TodoListType } from '../types/todo';
+import { SetStateType, TodoDataType } from '../types/todo';
 
 type TodoListProps = {
-  todos: TodoListType;
-  setTodos: Dispatch<SetStateAction<TodoListType>>;
+  todos: TodoDataType[] | [];
+  setTodos: SetStateType<TodoDataType[]>;
 };
 
 const TodoList = ({ todos, setTodos }: TodoListProps) => {
