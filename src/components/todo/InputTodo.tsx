@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { FaPlusCircle, FaSpinner } from 'react-icons/fa';
+import { FaPlusCircle, FaSpinner, FaSearch } from 'react-icons/fa';
 import React, { useCallback, useState } from 'react';
 import { createTodo } from 'api/todo.service';
 import { TodoInputType, TodoListType } from 'type/todo';
@@ -55,6 +55,9 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
   return (
     <div className="input-container">
       <form className="form-container" onSubmit={handleSubmit}>
+        <div className="flex-center">
+          <FaSearch className="search" />
+        </div>
         <input
           className="input-text"
           placeholder="Add new todo..."
