@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-
 import { RecommandListType } from 'type/search';
 import { SearchPayLoadType } from 'api/search.type';
 import { getRecommandList } from 'api/search.service';
@@ -31,6 +30,11 @@ export const useTodoFetch = (value: string) => {
     };
 
     fetchRecommand(value);
+
+    return () => {
+      setRecommandList([]);
+      setSearchPayload(undefined);
+    };
   }, [value]);
 
   return {

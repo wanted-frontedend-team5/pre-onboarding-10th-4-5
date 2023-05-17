@@ -12,10 +12,6 @@ export const useTodoInput = () => {
     setInputText(e.target.value);
   }, []);
 
-  const onInputReset = useCallback(() => {
-    setInputText('');
-  }, []);
-
   useEffect(() => {
     setFocusRef();
   }, [setFocusRef]);
@@ -26,6 +22,5 @@ export const useTodoInput = () => {
     debounceValue,
     focusRef,
     onChange,
-    onInputReset,
   };
 };

@@ -12,14 +12,8 @@ type InputTodoProps = {
 };
 
 const InputTodo = ({ setTodos }: InputTodoProps) => {
-  const {
-    setInputText,
-    inputText,
-    debounceValue,
-    focusRef,
-    onChange,
-    onInputReset,
-  } = useTodoInput();
+  const { setInputText, inputText, debounceValue, focusRef, onChange } =
+    useTodoInput();
   const { recommandList, fetchNextRecommandList } = useTodoFetch(debounceValue);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -42,11 +36,11 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
       } catch (error) {
         alert('Something went wrong.');
       } finally {
-        onInputReset();
+        setInputText('');
         setIsLoading(false);
       }
     },
-    [onInputReset, setTodos],
+    [setInputText, setTodos],
   );
 
   const handleSubmit = useCallback(
