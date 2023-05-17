@@ -4,6 +4,7 @@ import React, { useCallback, useState } from 'react';
 import { createTodo } from 'api/todo.service';
 import { TodoInputType, TodoListType } from 'type/todo';
 import { useTodoInput } from 'hooks/useTodoInput';
+import { useTodoFetch } from 'hooks/useTodoFetch';
 import { RecommandList } from './RecommandList';
 
 type InputTodoProps = {
@@ -11,17 +12,17 @@ type InputTodoProps = {
 };
 
 const InputTodo = ({ setTodos }: InputTodoProps) => {
-  const [isLoading, setIsLoading] = useState(false);
   const {
+    setInputText,
     inputText,
     debounceValue,
-    ref,
+    focusRef,
     onChange,
-    fetchNextRecommandList,
     onInputReset,
-    setInputText,
-    recommandList,
   } = useTodoInput();
+  const { recommandList, fetchNextRecommandList } = useTodoFetch(debounceValue);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const addTodosSubmitFunc = useCallback(
     async (value: string) => {
@@ -62,7 +63,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         <input
           className="input-text"
           placeholder="Add new todo..."
-          ref={ref}
+          ref={focusRef}
           value={inputText}
           onChange={onChange}
           disabled={isLoading}
