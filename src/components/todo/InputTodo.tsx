@@ -61,7 +61,8 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         <input
           className="input-text"
           placeholder="Add new todo..."
-          ref={focusRef}
+          ref={ref}
+          onClick={setFocus}
           value={inputText}
           onChange={onChange}
           disabled={isLoading}
@@ -75,7 +76,11 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         )}
       </form>
       <RecommandList
+<<<<<<< HEAD
         isEndPage={isEndPage}
+=======
+        isVisible={isVisible}
+>>>>>>> 369f12ff07f0083f467f477dd14319730bf13f79
         inputValue={inputText}
         fetchNextRecommandList={fetchNextRecommandList}
         recommandList={recommandList}

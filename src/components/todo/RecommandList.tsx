@@ -6,6 +6,7 @@ import { ImSpinner8 } from 'react-icons/im';
 import { RecommandListType } from 'type/search';
 
 type RecommandListProps = {
+  isVisible: boolean;
   inputValue: string;
   isEndPage: boolean;
   recommandList: RecommandListType;
@@ -18,6 +19,7 @@ const HIGHLIGHT_TEXT = (str: string) =>
   `<span style="color: #2BC9BA">${str}</span>`;
 
 export const RecommandList = ({
+  isVisible,
   inputValue,
   isEndPage,
   recommandList,
@@ -33,6 +35,10 @@ export const RecommandList = ({
     await fetchNextRecommandList();
     setLoading(false);
   });
+
+  if (!isVisible) {
+    return null; // Render nothing if isVisible is false
+  }
 
   return (
     <ul className={recommandList.length ? 'recommand-list' : 'none'}>
