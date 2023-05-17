@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { FaSpinner } from 'react-icons/fa';
 import useFocus from '../hooks/useFocus';
 import useFetchTodo from '../hooks/useFetchTodo';
+import useRecommend from '../hooks/useRecommend';
 import { SetStateType, TodoDataType } from '../types/todo';
 import Button from './Button';
 
@@ -13,6 +14,8 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
   const { isLoading, inputText, setInputText, handleChange, handleSubmit } =
     useFetchTodo(setTodos);
   const { ref, setFocus } = useFocus();
+  const [recommend, isRecommendRoading, getRecommend, hasNextPage] =
+    useRecommend(inputText);
 
   useEffect(() => {
     setFocus();
@@ -28,7 +31,11 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         onChange={handleChange}
         disabled={isLoading}
       />
-      {!isLoading ? <Button mode="add" /> : <FaSpinner className="spinner" />}
+      {!isLoading || isRecommendRoading ? (
+        <Button mode="add" />
+      ) : (
+        <FaSpinner className="spinner" />
+      )}
     </form>
   );
 };
