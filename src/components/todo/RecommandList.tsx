@@ -27,6 +27,7 @@ export const RecommandList = ({
 }: RecommandListProps) => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const tagetRef = useIntersect(async (entry, observer) => {
+    if (isEndPage) return;
     setLoading(true);
     observer.unobserve(entry.target);
     await fetchNextRecommandList();

@@ -11,7 +11,10 @@ export const useTodoFetch = (value: string) => {
   const fetchNextRecommandList = useCallback(async () => {
     if (!value) return;
     if (!searchPayload) return;
-    if (searchPayload.page <= searchPayload.limit) {
+
+    const totalPage = Math.ceil(searchPayload.total / searchPayload.limit);
+
+    if (searchPayload.page <= totalPage) {
       const result = await getRecommandList({
         q: value,
         page: searchPayload.page + 1,
@@ -27,15 +30,18 @@ export const useTodoFetch = (value: string) => {
   useEffect(() => {
     const fetchRecommand = async (inputText: string) => {
       if (!inputText) return;
-      const result = await getRecommandList({ q: inputText });
-      setSearchPayload(result.data);
-      setRecommandList(result.data.result);
+      const { data } = await getRecommandList({ q: inputText });
+      if (data.qty < data.limit) setIsEndPage(true);
+      setSearchPayload(data);
+      setRecommandList(data.result);
     };
+
     setIsEndPage(false);
     fetchRecommand(value);
 
     return () => {
       setRecommandList([]);
+      setIsEndPage(true);
     };
   }, [value]);
 

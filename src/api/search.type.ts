@@ -14,7 +14,7 @@ export interface SearchPayLoadType {
   limit: number;
   result: string[];
   qty: number;
-  totoal: number;
+  total: number;
 }
 
 export interface SearchResponseType extends BaseResponseType {
