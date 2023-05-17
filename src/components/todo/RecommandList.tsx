@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useIntersect } from 'hooks/useIntersect';
 import React, { useState } from 'react';
@@ -21,6 +20,7 @@ export const RecommandList = ({
   addTodosSubmitFunc,
 }: RecommandListProps) => {
   const [isLoading, setLoading] = useState<boolean>(false);
+  // const [showRecommend, setShowRecommend] = useState(false);
   const tagetRef = useIntersect(async (entry, observer) => {
     setLoading(true);
     observer.unobserve(entry.target);
@@ -30,28 +30,28 @@ export const RecommandList = ({
 
   return (
     <ul className={recommandList.length ? 'recommand-list' : 'none'}>
-      {recommandList.map((title, index) => {
-        let titleContent = title;
-        if (titleContent.includes(inputValue)) {
-          titleContent = titleContent.replaceAll(
-            inputValue,
-            `<span style="color: #2BC9BA">${inputValue}</span>`,
+      {inputValue &&
+        recommandList.map(title => {
+          let titleContent = title;
+          if (titleContent.includes(inputValue)) {
+            titleContent = titleContent.replaceAll(
+              inputValue,
+              `<span style="color: #2BC9BA">${inputValue}</span>`,
+            );
+          }
+          return (
+            <li
+              key={title}
+              className="recommand-item"
+              onClick={() => {
+                setInputText(title);
+                addTodosSubmitFunc(title);
+              }}
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{ __html: titleContent }}
+            />
           );
-        }
-        return (
-          <li
-            // eslint-disable-next-line react/no-array-index-key
-            key={index + 1}
-            className="recommand-item"
-            onClick={() => {
-              setInputText(title);
-              addTodosSubmitFunc(title);
-            }}
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{ __html: titleContent }}
-          />
-        );
-      })}
+        })}
       {isLoading && (
         <li className="recommand-item">
           <FaSpinner className="spinner" />
