@@ -17,6 +17,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
     debounceValue,
     ref,
     onChange,
+    fetchNextRecommandList,
     onInputReset,
     setInputText,
     recommandList,
@@ -76,6 +77,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
       </form>
       <RecommandList
         inputValue={inputText}
+        fetchNextRecommandList={fetchNextRecommandList}
         recommandList={recommandList}
         setInputText={setInputText}
         addTodosSubmitFunc={addTodosSubmitFunc}

@@ -223,3 +223,7 @@ body {
   color: rgb(233, 129, 129);
   background-color: black;
 }
+
+.target-item {
+  height: 1px;
+}
