@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useIntersect } from 'hooks/useIntersect';
 import React, { useState } from 'react';
-import { FaSpinner } from 'react-icons/fa';
+import { ImSpinner8 } from 'react-icons/im';
 import { RecommandListType } from 'type/search';
 
 type RecommandListProps = {
@@ -56,8 +56,8 @@ export const RecommandList = ({
         );
       })}
       {isLoading && (
-        <li className="recommand-item">
-          <FaSpinner className="spinner" />
+        <li className="recommand-item flex-center">
+          <ImSpinner8 className="spinner" />
         </li>
       )}
       <div className="target-item" ref={tagetRef}></div>
