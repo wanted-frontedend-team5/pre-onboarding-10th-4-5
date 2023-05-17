@@ -2,6 +2,7 @@ import { FaSpinner, FaTrash } from 'react-icons/fa';
 import { useCallback, useState } from 'react';
 import { deleteTodo } from '../api/todo';
 import { TodoListType } from '../types/todo';
+import Button from './Button';
 
 type TodoItemProps = {
   id: string;
@@ -30,9 +31,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ id, title, setTodos }) => {
       <span>{title}</span>
       <div className="item-option">
         {!isLoading ? (
-          <button onClick={handleRemoveTodo}>
-            <FaTrash className="btn-trash" />
-          </button>
+          <Button mode="remove" handleClick={handleRemoveTodo} />
         ) : (
           <FaSpinner className="spinner" />
         )}
