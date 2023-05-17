@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import { FaSearch } from 'react-icons/fa';
-import { ImSpinner, ImSpinner8 } from 'react-icons/im';
+import { ImSpinner8 } from 'react-icons/im';
 import React, { useCallback, useState } from 'react';
 import { createTodo } from 'api/todo.service';
 import { TodoInputType, TodoListType } from 'type/todo';
