@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useIntersect } from 'hooks/useIntersect';
-import React, { useState } from 'react';
+import React from 'react';
 import { ImSpinner8 } from 'react-icons/im';
 import { RecommandListType } from 'type/search';
 
@@ -9,6 +9,7 @@ type RecommandListProps = {
   isVisible: boolean;
   inputValue: string;
   isEndPage: boolean;
+  fetchLoading: boolean;
   recommandList: RecommandListType;
   setInputText: React.Dispatch<React.SetStateAction<string>>;
   fetchNextRecommandList: () => Promise<void>;
@@ -23,17 +24,15 @@ export const RecommandList = ({
   inputValue,
   isEndPage,
   recommandList,
+  fetchLoading,
   setInputText,
   fetchNextRecommandList,
   addTodosSubmitFunc,
 }: RecommandListProps) => {
-  const [isLoading, setLoading] = useState<boolean>(false);
   const tagetRef = useIntersect(async (entry, observer) => {
     if (isEndPage) return;
-    setLoading(true);
     observer.unobserve(entry.target);
     await fetchNextRecommandList();
-    setLoading(false);
   });
 
   if (!isVisible) {
@@ -65,7 +64,7 @@ export const RecommandList = ({
         );
       })}
       {!isEndPage && <li className="recommand-item flex-center">...</li>}
-      {isLoading && (
+      {fetchLoading && (
         <li className="recommand-item flex-center">
           <ImSpinner8 className="spinner" />
         </li>

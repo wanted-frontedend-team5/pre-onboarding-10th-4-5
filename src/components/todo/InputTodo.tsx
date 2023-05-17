@@ -1,5 +1,6 @@
 /* eslint-disable no-alert */
-import { FaPlusCircle, FaSpinner, FaSearch } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
+import { ImSpinner, ImSpinner8 } from 'react-icons/im';
 import React, { useCallback, useState } from 'react';
 import { createTodo } from 'api/todo.service';
 import { TodoInputType, TodoListType } from 'type/todo';
@@ -14,7 +15,7 @@ type InputTodoProps = {
 
 const InputTodo = ({ setTodos }: InputTodoProps) => {
   const { setInputText, inputText, debounceValue, onChange } = useTodoInput();
-  const { isEndPage, recommandList, fetchNextRecommandList } =
+  const { isEndPage, fetchLoading, recommandList, fetchNextRecommandList } =
     useTodoFetch(debounceValue);
   const { ref, setFocus, isVisible } = useFocus();
   const [isLoading, setIsLoading] = useState(false);
@@ -67,17 +68,12 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
           onChange={onChange}
           disabled={isLoading}
         />
-        {!isLoading ? (
-          <button className="input-submit" type="submit">
-            <FaPlusCircle className="btn-plus" />
-          </button>
-        ) : (
-          <FaSpinner className="spinner" />
-        )}
+        {fetchLoading ? <ImSpinner8 className="spinner" /> : <p />}
       </form>
       <RecommandList
         isEndPage={isEndPage}
         isVisible={isVisible}
+        fetchLoading={fetchLoading}
         inputValue={inputText}
         fetchNextRecommandList={fetchNextRecommandList}
         recommandList={recommandList}
