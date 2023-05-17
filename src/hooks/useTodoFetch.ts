@@ -11,6 +11,10 @@ export const useTodoFetch = (value: string) => {
   const fetchNextRecommandList = useCallback(async () => {
     if (!value) return;
     if (!searchPayload) return;
+    if (searchPayload.qty < searchPayload.limit) {
+      setIsEndPage(true);
+      return;
+    }
 
     const totalPage = Math.ceil(searchPayload.total / searchPayload.limit);
 
