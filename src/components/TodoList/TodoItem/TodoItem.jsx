@@ -1,20 +1,28 @@
-import { FaSpinner, FaTrash } from "react-icons/fa";
-import { useCallback, useState } from "react";
+import { FaSpinner, FaTrash } from 'react-icons/fa';
+import { useCallback, useState, useEffect, useRef } from 'react';
 
-import { deleteTodo } from "../api/todo";
+import { deleteTodo } from '../../../api/todo';
 
 const TodoItem = ({ id, title, setTodos }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const isMountedRef = useRef(true);
+
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
   const handleRemoveTodo = useCallback(async () => {
     try {
       setIsLoading(true);
       await deleteTodo(id);
-
-      setTodos((prev) => prev.filter((item) => item.id !== id));
+      setTodos(prev => prev.filter(item => item.id !== id));
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
-      alert("Something went wrong.");
+      // eslint-disable-next-line no-alert
+      alert('Something went wrong.');
     } finally {
       setIsLoading(false);
     }

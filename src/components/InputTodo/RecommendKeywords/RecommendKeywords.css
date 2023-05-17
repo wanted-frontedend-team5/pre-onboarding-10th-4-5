@@ -1,0 +1,7 @@
+.rec.wrapper {
+  border: 1px solid #DEDEDE;
+  width: 100%;
+  height: 164px;
+  overflow: scroll;
+  text-align: center;
+}
