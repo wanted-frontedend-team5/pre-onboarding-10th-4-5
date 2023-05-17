@@ -53,7 +53,7 @@ export const RecommandList = ({
         );
       })}
       {isLoading && (
-        <li className="recommand-item">
+        <li className="recommand-item flex-center">
           <FaSpinner className="spinner" />
         </li>
       )}

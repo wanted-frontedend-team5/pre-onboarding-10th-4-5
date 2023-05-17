@@ -229,3 +229,9 @@ body {
 .target-item {
   height: 1px;
 }
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
