@@ -14,7 +14,8 @@ type InputTodoProps = {
 const InputTodo = ({ setTodos }: InputTodoProps) => {
   const { setInputText, inputText, debounceValue, focusRef, onChange } =
     useTodoInput();
-  const { recommandList, fetchNextRecommandList } = useTodoFetch(debounceValue);
+  const { isEndPage, recommandList, fetchNextRecommandList } =
+    useTodoFetch(debounceValue);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -71,6 +72,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         )}
       </form>
       <RecommandList
+        isEndPage={isEndPage}
         inputValue={inputText}
         fetchNextRecommandList={fetchNextRecommandList}
         recommandList={recommandList}

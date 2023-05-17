@@ -7,6 +7,7 @@ import { RecommandListType } from 'type/search';
 
 type RecommandListProps = {
   inputValue: string;
+  isEndPage: boolean;
   recommandList: RecommandListType;
   setInputText: React.Dispatch<React.SetStateAction<string>>;
   fetchNextRecommandList: () => Promise<void>;
@@ -18,6 +19,7 @@ const HIGHLIGHT_TEXT = (str: string) =>
 
 export const RecommandList = ({
   inputValue,
+  isEndPage,
   recommandList,
   setInputText,
   fetchNextRecommandList,
@@ -55,6 +57,7 @@ export const RecommandList = ({
           />
         );
       })}
+      {!isEndPage && <li className="recommand-item flex-center">...</li>}
       {isLoading && (
         <li className="recommand-item flex-center">
           <ImSpinner8 className="spinner" />

@@ -6,6 +6,7 @@ import { getRecommandList } from 'api/search.service';
 export const useTodoFetch = (value: string) => {
   const [searchPayload, setSearchPayload] = useState<SearchPayLoadType>();
   const [recommandList, setRecommandList] = useState<RecommandListType>([]);
+  const [isEndPage, setIsEndPage] = useState<boolean>(false);
 
   const fetchNextRecommandList = useCallback(async () => {
     if (!value) return;
@@ -18,6 +19,8 @@ export const useTodoFetch = (value: string) => {
 
       setSearchPayload(result.data);
       setRecommandList(prev => [...prev, ...result.data.result]);
+    } else {
+      setIsEndPage(true);
     }
   }, [value, searchPayload]);
 
@@ -28,17 +31,13 @@ export const useTodoFetch = (value: string) => {
       setSearchPayload(result.data);
       setRecommandList(result.data.result);
     };
-
+    setIsEndPage(false);
     fetchRecommand(value);
 
     return () => {
       setRecommandList([]);
-      setSearchPayload(undefined);
     };
   }, [value]);
 
-  return {
-    recommandList,
-    fetchNextRecommandList,
-  };
+  return { isEndPage, recommandList, fetchNextRecommandList };
 };
