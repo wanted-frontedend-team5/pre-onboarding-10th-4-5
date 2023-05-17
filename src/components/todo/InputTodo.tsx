@@ -1,44 +1,43 @@
-import { FaPlusCircle, FaSpinner } from "react-icons/fa";
-import { useCallback, useEffect, useState } from "react";
+/* eslint-disable no-alert */
+import { FaPlusCircle, FaSpinner } from 'react-icons/fa';
+import React, { useCallback, useState } from 'react';
+import { createTodo } from 'api/todo';
+import { TodoInputType, TodoListType } from 'type/todo';
+import { useFocusInput } from 'hooks/useFocusInput';
 
-import { createTodo } from "../api/todo";
-import useFocus from "../hooks/useFocus";
+type InputTodoProps = {
+  setTodos: React.Dispatch<React.SetStateAction<TodoListType>>;
+};
 
-const InputTodo = ({ setTodos }) => {
-  const [inputText, setInputText] = useState("");
+const InputTodo = ({ setTodos }: InputTodoProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { ref, setFocus } = useFocus();
-
-  useEffect(() => {
-    setFocus();
-  }, [setFocus]);
+  const { inputText, ref, onChange, onInputReset } = useFocusInput();
 
   const handleSubmit = useCallback(
-    async (e) => {
+    async (e: React.FormEvent<HTMLFormElement>) => {
       try {
         e.preventDefault();
         setIsLoading(true);
 
         const trimmed = inputText.trim();
         if (!trimmed) {
-          return alert("Please write something");
+          return alert('Please write something');
         }
 
-        const newItem = { title: trimmed };
+        const newItem: TodoInputType = { title: trimmed };
         const { data } = await createTodo(newItem);
 
         if (data) {
-          return setTodos((prev) => [...prev, data]);
+          return setTodos(prev => [...prev, data]);
         }
       } catch (error) {
-        console.error(error);
-        alert("Something went wrong.");
+        alert('Something went wrong.');
       } finally {
-        setInputText("");
+        onInputReset();
         setIsLoading(false);
       }
     },
-    [inputText, setTodos],
+    [inputText, setTodos, onInputReset],
   );
 
   return (
@@ -48,7 +47,7 @@ const InputTodo = ({ setTodos }) => {
         placeholder="Add new todo..."
         ref={ref}
         value={inputText}
-        onChange={(e) => setInputText(e.target.value)}
+        onChange={onChange}
         disabled={isLoading}
       />
       {!isLoading ? (
