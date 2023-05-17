@@ -209,14 +209,16 @@ body {
   font-size: 15px;
   margin: 2px;
   transition-duration: 300ms;
+  user-select: none;
 }
 
 .recommand-item:hover {
   background: #f2f2f2;
 }
 
-.recommand-item:click {
-  background: #2bc9ba;
+.recommand-item:active {
+  background: #D5F4F1;
+  border-radius: 3px;
 }
 
 .highlight {
