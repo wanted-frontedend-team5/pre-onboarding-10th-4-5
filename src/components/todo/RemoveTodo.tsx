@@ -18,6 +18,7 @@ export const RemoveTodo = ({ id, setTodos }: RemoveTodoProps) => {
 
       setTodos(prev => prev.filter(item => item.id !== id));
     } catch (error) {
+      // eslint-disable-next-line no-alert
       alert('Something went wrong.');
     } finally {
       setIsLoading(false);
