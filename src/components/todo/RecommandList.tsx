@@ -13,6 +13,9 @@ type RecommandListProps = {
   addTodosSubmitFunc: (value: string) => Promise<void>;
 };
 
+const HIGHLIGHT_TEXT = (str: string) =>
+  `<span style="color: #2BC9BA">${str}</span>`;
+
 export const RecommandList = ({
   inputValue,
   recommandList,
@@ -35,7 +38,7 @@ export const RecommandList = ({
         if (titleContent.includes(inputValue)) {
           titleContent = titleContent.replaceAll(
             inputValue,
-            `<span style="color: #2BC9BA">${inputValue}</span>`,
+            HIGHLIGHT_TEXT(inputValue),
           );
         }
         return (
