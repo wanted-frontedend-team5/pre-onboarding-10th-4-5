@@ -1,14 +1,15 @@
-import { FaPlusCircle, FaSpinner } from 'react-icons/fa';
+import { FaSpinner } from 'react-icons/fa';
 import { useCallback, useEffect, useState } from 'react';
 import { createTodo } from '../api/todo';
 import useFocus from '../hooks/useFocus';
-import { TodoListType } from '../types/todo';
+import { SetStateType, TodoDataType } from '../types/todo';
+import Button from './Button';
 
-type InputTodoProps = {
-  setTodos: React.Dispatch<React.SetStateAction<TodoListType>>;
+export type InputTodoProps = {
+  setTodos: SetStateType<TodoDataType[]>;
 };
 
-const InputTodo: React.FC<InputTodoProps> = ({ setTodos }) => {
+const InputTodo = ({ setTodos }: InputTodoProps) => {
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { ref, setFocus } = useFocus();
@@ -25,6 +26,7 @@ const InputTodo: React.FC<InputTodoProps> = ({ setTodos }) => {
 
         const trimmed = inputText.trim();
         if (!trimmed) {
+          // eslint-disable-next-line no-alert
           alert('Please write something');
           return;
         }
@@ -33,10 +35,12 @@ const InputTodo: React.FC<InputTodoProps> = ({ setTodos }) => {
         const { data } = await createTodo(newItem);
 
         if (data) {
-          setTodos(prev => [...prev, data] as TodoListType);
+          setTodos(prev => [...prev, data]);
         }
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error(error);
+        // eslint-disable-next-line no-alert
         alert('Something went wrong.');
       } finally {
         setInputText('');
@@ -56,13 +60,7 @@ const InputTodo: React.FC<InputTodoProps> = ({ setTodos }) => {
         onChange={e => setInputText(e.target.value)}
         disabled={isLoading}
       />
-      {!isLoading ? (
-        <button className="input-submit" type="submit">
-          <FaPlusCircle className="btn-plus" />
-        </button>
-      ) : (
-        <FaSpinner className="spinner" />
-      )}
+      {!isLoading ? <Button mode="add" /> : <FaSpinner className="spinner" />}
     </form>
   );
 };
