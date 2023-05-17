@@ -1,4 +1,4 @@
-import { getTodoList } from 'api/todo';
+import { getTodoList } from 'api/todo.service';
 import { useState, useEffect } from 'react';
 import { TodoListType } from 'type/todo';
 
