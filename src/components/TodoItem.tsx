@@ -1,13 +1,13 @@
-import { FaSpinner, FaTrash } from 'react-icons/fa';
 import { useCallback, useState } from 'react';
+import { FaSpinner } from 'react-icons/fa';
 import { deleteTodo } from '../api/todo';
-import { TodoListType } from '../types/todo';
+import { SetStateType, TodoDataType } from '../types/todo';
 import Button from './Button';
 
 type TodoItemProps = {
   id: string;
   title: string;
-  setTodos: React.Dispatch<React.SetStateAction<TodoListType>>;
+  setTodos: SetStateType<TodoDataType[]>;
 };
 
 const TodoItem: React.FC<TodoItemProps> = ({ id, title, setTodos }) => {
@@ -19,7 +19,9 @@ const TodoItem: React.FC<TodoItemProps> = ({ id, title, setTodos }) => {
       await deleteTodo(id);
       setTodos(prev => prev.filter(item => item.id !== id));
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
+      // eslint-disable-next-line no-alert
       alert('Something went wrong.');
     } finally {
       setIsLoading(false);
