@@ -4,6 +4,7 @@ import React, { useCallback, useState } from 'react';
 import { createTodo } from 'api/todo.service';
 import { TodoInputType, TodoListType } from 'type/todo';
 import { useTodoInput } from 'hooks/useTodoInput';
+import { useFocus } from 'hooks/useFocus';
 import { useTodoFetch } from 'hooks/useTodoFetch';
 import { RecommandList } from './RecommandList';
 
@@ -12,11 +13,10 @@ type InputTodoProps = {
 };
 
 const InputTodo = ({ setTodos }: InputTodoProps) => {
-  const { setInputText, inputText, debounceValue, focusRef, onChange } =
-    useTodoInput();
+  const { setInputText, inputText, debounceValue, onChange } = useTodoInput();
   const { isEndPage, recommandList, fetchNextRecommandList } =
     useTodoFetch(debounceValue);
-
+  const { ref, setFocus, isVisible } = useFocus();
   const [isLoading, setIsLoading] = useState(false);
 
   const addTodosSubmitFunc = useCallback(
@@ -76,11 +76,8 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         )}
       </form>
       <RecommandList
-<<<<<<< HEAD
         isEndPage={isEndPage}
-=======
         isVisible={isVisible}
->>>>>>> 369f12ff07f0083f467f477dd14319730bf13f79
         inputValue={inputText}
         fetchNextRecommandList={fetchNextRecommandList}
         recommandList={recommandList}

@@ -37,7 +37,7 @@ export const RecommandList = ({
   });
 
   if (!isVisible) {
-    return null; // Render nothing if isVisible is false
+    return null;
   }
 
   return (
