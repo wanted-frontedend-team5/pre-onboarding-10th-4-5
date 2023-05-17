@@ -1,8 +1,13 @@
-import './App.css';
 import { Main } from './pages/Main';
+import { Globalstyle } from './styles/GlobalStyle';
 
 const App = () => {
-  return <Main />;
+  return (
+    <>
+      <Globalstyle />
+      <Main />
+    </>
+  );
 };
 
 export default App;

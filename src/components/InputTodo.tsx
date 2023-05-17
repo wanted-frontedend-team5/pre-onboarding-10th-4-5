@@ -1,68 +1,101 @@
-import { useState, useEffect, useCallback } from 'react';
-import { FaPlusCircle, FaSpinner } from 'react-icons/fa';
-import { createTodo } from '../api/todo';
-import { useFocus } from '../hooks/useFocus';
-import { todoList } from '../type';
+import styled from 'styled-components';
+import { useState, useEffect, useRef } from 'react';
+import { colors } from '../styles/colors';
+import { getSearch } from '../api/todo';
+import { useDebounce } from '../hooks/useDebounce';
+import { SearchList } from './SearchList';
 
-type Props = {
-  setTodos: React.Dispatch<React.SetStateAction<todoList[]>>;
-};
+const TIME = 50000;
 
-export const InputTodo = ({ setTodos }: Props) => {
+export const InputTodo = () => {
   const [inputText, setInputText] = useState('');
+  const [todoListData, setTodoListData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const { ref, setFocus } = useFocus();
+
+  const debouncedSearchTerm = useDebounce(setTodoListData, TIME);
+  const page = 1;
+  const limit = 10;
 
   useEffect(() => {
-    setFocus();
-  }, [setFocus]);
-
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      try {
-        e.preventDefault();
-        setIsLoading(true);
-
-        const trimmed = inputText.trim();
-        if (!trimmed) {
-          return alert('Please write something');
-        }
-
-        const newItem = { title: trimmed };
-        const { data } = await createTodo(newItem);
-
-        if (data) {
-          return setTodos(prev => [...prev, data]);
-        }
-      } catch (error) {
-        console.error(error);
-        alert('Something went wrong.');
-      } finally {
-        setInputText('');
-        setIsLoading(false);
-      }
-    },
-
-    [inputText, setTodos],
-  );
+    (async () => {
+      const { data } = await getSearch(inputText, page, limit);
+      setTodoListData(data);
+      setIsLoading(false);
+    })();
+    if (debouncedSearchTerm) {
+      setIsLoading(true);
+    } else {
+      setTodoListData([]);
+      setIsLoading(false);
+    }
+  }, [inputText, debouncedSearchTerm]);
 
   return (
-    <form className="form-container" onSubmit={handleSubmit}>
-      <input
-        className="input-text"
-        placeholder="Add new todo..."
-        ref={ref}
-        value={inputText}
-        onChange={e => setInputText(e.target.value)}
-        disabled={isLoading}
-      />
-      {!isLoading ? (
-        <button className="input-submit" type="submit">
-          <FaPlusCircle className="btn-plus" />
-        </button>
-      ) : (
-        <FaSpinner className="spinner" />
-      )}
-    </form>
+    <>
+      <Form>
+        <Button type="submit">🔍</Button>
+        <StInput
+          name="input-text"
+          value={inputText}
+          placeholder="Add new todo..."
+          onChange={e => setInputText(e.target.value)}
+        />
+        {isLoading ? <Spinner /> : ''}
+      </Form>
+      <SearchList todoListData={todoListData} />
+    </>
   );
 };
+
+const Form = styled.form`
+  position: relative;
+  width: 50%;
+  margin: 0 auto;
+  padding: 0 40px 0 0;
+  border: 1px solid ${colors.neutralLight};
+  border-radius: 6px;
+  &:focus {
+    outline: 1px solid ${colors.neutralDark};
+  }
+
+  &:hover {
+    outline: 2px solid ${colors.neutralLight};
+  }
+`;
+
+const StInput = styled.input`
+  position: relative;
+  width: 80%;
+  height: 45px;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const Button = styled.button`
+  width: 5%;
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+`;
+
+const Spinner = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  width: 25px;
+  height: 25px;
+  border: 1px solid ${colors.neutralDark};
+  border-top: 1px solid ${colors.neutralLight};
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+  @keyframes spin {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+`;
