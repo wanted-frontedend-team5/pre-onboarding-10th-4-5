@@ -4,7 +4,8 @@ import React, { useCallback, useState } from 'react';
 import { createTodo } from 'api/todo.service';
 import { TodoInputType, TodoListType } from 'type/todo';
 import { useTodoInput } from 'hooks/useTodoInput';
-import useFocus from 'hooks/useFocus';
+import { useFocus } from 'hooks/useFocus';
+import { useTodoFetch } from 'hooks/useTodoFetch';
 import { RecommandList } from './RecommandList';
 
 type InputTodoProps = {
@@ -12,18 +13,11 @@ type InputTodoProps = {
 };
 
 const InputTodo = ({ setTodos }: InputTodoProps) => {
+  const { setInputText, inputText, debounceValue, onChange } = useTodoInput();
+  const { isEndPage, recommandList, fetchNextRecommandList } =
+    useTodoFetch(debounceValue);
+  const { ref, setFocus, isVisible } = useFocus();
   const [isLoading, setIsLoading] = useState(false);
-  const {
-    inputText,
-    debounceValue,
-    // ref,
-    onChange,
-    fetchNextRecommandList,
-    onInputReset,
-    setInputText,
-    recommandList,
-  } = useTodoInput();
-  const { ref, setFocus, isVisible, setIsVisible } = useFocus();
 
   const addTodosSubmitFunc = useCallback(
     async (value: string) => {
@@ -43,11 +37,11 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
       } catch (error) {
         alert('Something went wrong.');
       } finally {
-        onInputReset();
+        setInputText('');
         setIsLoading(false);
       }
     },
-    [onInputReset, setTodos],
+    [setInputText, setTodos],
   );
 
   const handleSubmit = useCallback(
@@ -82,6 +76,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         )}
       </form>
       <RecommandList
+        isEndPage={isEndPage}
         isVisible={isVisible}
         inputValue={inputText}
         fetchNextRecommandList={fetchNextRecommandList}

@@ -8,15 +8,20 @@ import { RecommandListType } from 'type/search';
 type RecommandListProps = {
   isVisible: boolean;
   inputValue: string;
+  isEndPage: boolean;
   recommandList: RecommandListType;
   setInputText: React.Dispatch<React.SetStateAction<string>>;
   fetchNextRecommandList: () => Promise<void>;
   addTodosSubmitFunc: (value: string) => Promise<void>;
 };
 
+const HIGHLIGHT_TEXT = (str: string) =>
+  `<span style="color: #2BC9BA">${str}</span>`;
+
 export const RecommandList = ({
   isVisible,
   inputValue,
+  isEndPage,
   recommandList,
   setInputText,
   fetchNextRecommandList,
@@ -24,6 +29,7 @@ export const RecommandList = ({
 }: RecommandListProps) => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const tagetRef = useIntersect(async (entry, observer) => {
+    if (isEndPage) return;
     setLoading(true);
     observer.unobserve(entry.target);
     await fetchNextRecommandList();
@@ -31,7 +37,7 @@ export const RecommandList = ({
   });
 
   if (!isVisible) {
-    return null; // Render nothing if isVisible is false
+    return null;
   }
 
   return (
@@ -41,7 +47,7 @@ export const RecommandList = ({
         if (titleContent.includes(inputValue)) {
           titleContent = titleContent.replaceAll(
             inputValue,
-            `<span style="color: #2BC9BA">${inputValue}</span>`,
+            HIGHLIGHT_TEXT(inputValue),
           );
         }
         return (
@@ -58,6 +64,7 @@ export const RecommandList = ({
           />
         );
       })}
+      {!isEndPage && <li className="recommand-item flex-center">...</li>}
       {isLoading && (
         <li className="recommand-item flex-center">
           <ImSpinner8 className="spinner" />

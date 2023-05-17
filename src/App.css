@@ -46,7 +46,7 @@ body {
 }
 
 .form-container:hover {
-  border: 3px solid #DEDEDE;
+  border: 3px solid #dedede;
 }
 
 .input-text {
@@ -170,7 +170,7 @@ body {
   position: absolute;
   box-sizing: border-box;
   list-style-type: none;
-  height: 200px;
+  max-height: 200px;
   width: 100%;
   top: 48px;
   z-index: 999;
@@ -217,7 +217,7 @@ body {
 }
 
 .recommand-item:active {
-  background: #D5F4F1;
+  background: #d5f4f1;
   border-radius: 3px;
 }
 
@@ -237,5 +237,5 @@ body {
 }
 
 .search {
-  color: #7D7D7D;
+  color: #7d7d7d;
 }
