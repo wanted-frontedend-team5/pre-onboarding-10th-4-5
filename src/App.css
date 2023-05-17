@@ -8,7 +8,7 @@
 }
 
 body {
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
   line-height: 1.4;
   color: #444;
   background: #fff;
@@ -33,9 +33,16 @@ body {
   width: 100%;
   margin-bottom: 20px;
   display: flex;
-  border-radius: calc(0.5 * 100px);
-  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.38);
+  border-radius: 6px;
+  border: #DEDEDE 1px solid;
   justify-content: space-evenly;
+}
+
+.form-container:hover {
+  border: #DEDEDE 3px solid;
+}
+.form-container:active {
+  border: #9F9F9F 1px solid;
 }
 
 .input-text {
@@ -46,6 +53,8 @@ body {
   padding-left: 10px;
   border-radius: calc(0.5 * 100px);
   background-color: transparent;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }
 
 .input-submit {

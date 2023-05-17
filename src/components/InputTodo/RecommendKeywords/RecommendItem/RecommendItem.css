@@ -1,0 +1,12 @@
+.rec.unitbutton {
+  border: 0;
+  background-color: transparent;
+}
+
+.rec.unitbg:hover {
+  background-color: #f2f2f2;
+}
+
+.rec.unitbg:active {
+  background-color: #D5F4F1;
+}
