@@ -23,9 +23,9 @@ export const useTodoInput = () => {
     setRecommandList([]);
   }, []);
 
-  useEffect(() => {
-    setFocus();
-  }, [setFocus]);
+  // useEffect(() => {
+  //   setFocus();
+  // }, [setFocus]);
 
   const fetchNextRecommandList = useCallback(async () => {
     if (!debounceValue) return;

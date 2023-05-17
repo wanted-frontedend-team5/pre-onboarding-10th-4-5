@@ -6,6 +6,7 @@ import { ImSpinner8 } from 'react-icons/im';
 import { RecommandListType } from 'type/search';
 
 type RecommandListProps = {
+  isVisible: boolean;
   inputValue: string;
   recommandList: RecommandListType;
   setInputText: React.Dispatch<React.SetStateAction<string>>;
@@ -14,6 +15,7 @@ type RecommandListProps = {
 };
 
 export const RecommandList = ({
+  isVisible,
   inputValue,
   recommandList,
   setInputText,
@@ -27,6 +29,10 @@ export const RecommandList = ({
     await fetchNextRecommandList();
     setLoading(false);
   });
+
+  if (!isVisible) {
+    return null; // Render nothing if isVisible is false
+  }
 
   return (
     <ul className={recommandList.length ? 'recommand-list' : 'none'}>
